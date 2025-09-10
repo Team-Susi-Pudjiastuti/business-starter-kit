@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>ManagHer — Dashboard</title>
+  <!--CSS-->
+  <link rel="stylesheet" href="..\template\style.css" class="css">
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Script js -->
+  <script src="..\template\script.js" defer></script>
+
+
+</head>
+<body class="min-h-screen">
+  <!-- SIDEBAR -->
+  <aside id="sidebar" class="sidebar fixed top-0 left-0 h-full bg-white border-r shadow-sm p-4 w-64 hidden lg:block">
+    <div class="flex items-center gap-3 mb-4">
+      <div id="brandLogo" class="w-12 h-12 rounded-xl grad-accent grid place-items-center text-lg font-extrabold shadow-md">MH</div>
+      <div class="leading-tight">
+        <div class="font-semibold">ManagHer</div>
+        <div class="text-xs text-slate-500">Solopreneur Journey</div>
+      </div>
+    </div>
+    <nav class="mt-2">
+      <ul class="space-y-1 text-sm">
+        <li>
+          <a href="../Dashboard/index.html" class="w-full flex items-center gap-3 p-2 rounded-lg hover:bg-slate-100"">
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="M3 3h18v4H3V3zM3 10h18v11H3V10z" /></svg>
+            <span class="menu-text">Dashboard</span>
+          </a>
+        </li>
+        <li>
+          <div>
+            <button id="homepageBtn" class="w-full flex items-center justify-between gap-3 p-2 rounded-lg hover:bg-slate-100" onclick="toggleHomepageSubmenu(); toggleMobileSidebar(false)">
+              <span class="flex items-center gap-3">
+                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="M3 10l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1v-9z"/></svg>
+                <span class="menu-text">Homepage</span>
+              </span>
+              <svg id="homeArrow" class="w-4 h-4 transform transition-transform" viewBox="0 0 20 20"><path d="M6 8l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+            </button>
+            <ul id="homepageSubmenu" class="ml-6 mt-2 space-y-1 text-xs hidden">
+              <li>
+                <button class="w-full text-left p-2 rounded-md hover:bg-slate-100" onclick="goToLevel(1); toggleMobileSidebar(false)">
+                  Level 1: Ide Bisnis
+                </button>
+              </li>
+              <li>
+                <button class="w-full text-left p-2 rounded-md hover:bg-slate-100" onclick="goToLevel(2); toggleMobileSidebar(false)">
+                  Level 2: Validasi Ide
+                </button>
+              </li>
+              <li>
+                <button class="w-full text-left p-2 rounded-md bg-slate-100 hover:bg-slate-100" onclick="goToLevel(3); toggleMobileSidebar(false)">
+                  Level 3: Prototype
+                </button>
+              </li>
+              <li>
+                <button class="w-full text-left p-2 rounded-md hover:bg-slate-100" onclick="goToLevel(4); toggleMobileSidebar(false)">
+                  Level 4: Action
+                </button>
+              </li>
+              <li>
+                <button class="w-full text-left p-2 rounded-md hover:bg-slate-100" onclick="goToLevel(5); toggleMobileSidebar(false)">
+                  Level 5: Business Model Canvas
+                </button>
+              </li>
+            </ul>
+          </div>
+        </li>
+        <li>
+          <a href="../Badges/index.html" class="w-full flex items-center gap-3 p-2 rounded-lg hover:bg-slate-100" onclick="showBadges()">
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="M12 2l3 7h7l-5.5 4.2L20 23l-8-5-8 5 3.5-9.8L2 9h7l3-7z"/></svg>
+            <span class="menu-text">Badges</span>
+          </a>
+        </li>
+        <li>
+          <button class="w-full flex items-center gap-3 p-2 rounded-lg hover:bg-slate-100 text-red-600" onclick="logout()">
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="M17 16l4-4m0 0l-4-4m4 4H7"/></svg>
+            <span class="menu-text">Logout</span>
+          </button>
+        </li>
+      </ul>
+    </nav>
+    <div class="mt-auto pt-4 text-xs text-slate-500">
+      <div>v1.0 — Prototype</div>
+    </div>
+  </aside>
+  
+  <!-- Mobile Sidebar Toggle -->
+  <div class="lg:hidden fixed top-0 left-0 right-0 z-50 bg-white border-b p-4 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <button id="mobileMenuBtn" class="p-2 border rounded-lg">
+        <svg class="w-5 h-5" viewBox="0 0 24 24">
+          <path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </button>
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl grad-accent grid place-items-center text-white font-bold">MH</div>
+        <div>
+          <div class="text-lg font-semibold">ManagHer</div>
+          <div class="text-xs text-slate-500">Solopreneur Journey</div>
+        </div>
+      </div>
+    </div>
+    <div class="text-xs text-slate-500">Dashboard</div>
+  </div>
+  
+  <!-- MAIN CONTENT -->
+  <div id="main" class="lg:ml-64 pt-16 lg:pt-6 p-6">
+  </div>
+</body>
+</html>
